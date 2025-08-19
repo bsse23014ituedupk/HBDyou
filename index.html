@@ -145,15 +145,32 @@
   </style>
 </head>
 <body>
-  <div id="luckier-badge-dyn">
-    <div>The World just Got Luckier Since</div>
-    <div><span id="badge-days">0</span> Days <span id="badge-minutes">0</span> Minutes <span id="badge-seconds">0</span> Seconds</div>
+  <!-- Animated Intro Page -->
+  <div id="intro-overlay" style="position:fixed;z-index:9999;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s;">
+      <div id="search-anim" style="background:var(--glass);border-radius:56px;box-shadow:0 16px 80px #000b;padding:72px 64px 64px 64px;min-width:700px;max-width:99vw;display:flex;flex-direction:column;align-items:center;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+          <div style="width:74px;height:74px;background:#fff2;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:3.2rem;">🔎</div>
+          <span style="font-size:2.7rem;font-family:'Poppins',sans-serif;color:var(--text);font-weight:700;letter-spacing:2px;">Search</span>
+      </div>
+        <input id="fake-search" type="text" style="width:820px;max-width:98vw;padding:38px 54px;border-radius:44px;border:none;font-size:2.2rem;background:rgba(255,255,255,0.13);color:var(--text);outline:none;box-shadow:0 6px 38px #0004;" placeholder="Type here..." disabled />
+        <div id="search-msg" style="margin-top:64px;font-size:2.5rem;color:var(--text);font-family:'Poppins',sans-serif;opacity:0;transform:translateY(20px);transition:all 0.7s;white-space:pre-line;text-align:center;min-height:3em;"></div>
+    </div>
   </div>
+  <!-- Centered dynamic time section -->
+  <section id="luckier-since-main" style="width:100vw; text-align:center; margin-top:32px; margin-bottom:32px;display:none;">
+    <div style="font-family: 'Fira Mono', 'Consolas', 'Courier New', monospace; font-size:2rem; letter-spacing:2px; color:#fff; margin-bottom:1.2rem;">
+      THE WORLD JUST GOT LUCKIER SINCE
+    </div>
+    <div id="since-counter-main" style="display:flex; justify-content:center; align-items:baseline; gap:0.5rem; flex-wrap:wrap; font-size:1.5rem;">
+      <span id="main-days" style="font-size:3rem; font-weight:600; color:#fff;">0</span> Days
+      <span id="main-minutes" style="font-size:3rem; font-weight:600; color:#fff;">0</span> Minutes
+      <span id="main-seconds" style="font-size:3rem; font-weight:600; color:#fff;">0</span> Seconds
+    </div>
+  </section>
   <canvas id="fx"></canvas>
 
   <!-- Floating quick controls -->
   <div class="floating-ui">
-    <button id="music-btn" class="pill" aria-label="Toggle music">🎵 <span class="k">Music</span></button>
     <button id="share-btn" class="pill" aria-label="Share">🔗 <span class="k">Share</span></button>
   </div>
 
@@ -169,7 +186,7 @@
       <h1 class="brand" id="title">Happy Birthday, My Love</h1>
       <p class="lead" id="subtitle">May your heart be as light as these balloons, your smile as bright as the fireworks, and your year as sweet as cake. 💖</p>
       <div class="cta-row">
-        <button class="btn primary" id="reveal-btn">🎁 Open your surprise</button>
+        <button class="btn primary" id="reveal-btn"> Click Here 🎉</button>
         <button class="btn" id="balloon-btn">🎈 Release balloons</button>
       </div>
     </div>
@@ -227,24 +244,75 @@
     Made with ❤️ just for you. <span id="year"></span>
   </footer>
 
-  <!-- Background Music (uses local aud.mp3) -->
-  <audio id="bgm" loop preload="auto">
-    <source src="aud.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <!-- 🎥 Birthday Video Section -->
-  <section id="videoSection" class="hidden" style="text-align:center; margin-top:2rem;">
-    <h2>🎉 A Special Surprise 🎉</h2>
-    <video id="birthdayVideo" controls autoplay loop style="max-width:100%; border-radius:24px; box-shadow:0 4px 24px #0003;">
-      <source src="aud.mp3" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </section>
+  <!-- Background Music and Special Surprise section removed -->
   <script>
-    // Top-left badge dynamic time and animation
+    // Intro animation logic
+    window.addEventListener('DOMContentLoaded', function() {
+      const overlay = document.getElementById('intro-overlay');
+      const searchMsg = document.getElementById('search-msg');
+      const fakeSearch = document.getElementById('fake-search');
+      const mainSection = document.getElementById('luckier-since-main');
+      let step = 0;
+      function showMsg(msg, cb) {
+        searchMsg.textContent = '';
+        searchMsg.style.opacity = 0;
+        searchMsg.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          searchMsg.textContent = msg;
+          searchMsg.style.opacity = 1;
+          searchMsg.style.transform = 'translateY(0)';
+          if(cb) setTimeout(cb, 1800);
+        }, 600);
+      }
+      setTimeout(() => {
+        fakeSearch.removeAttribute('disabled');
+        fakeSearch.focus();
+        let i = 0, txt = 'Hi Google! What is special Today ? ';
+        fakeSearch.value = '';
+        function typeIt() {
+          if(i <= txt.length) {
+            fakeSearch.value = txt.slice(0, i++);
+            setTimeout(typeIt, 55);
+          } else {
+            fakeSearch.setAttribute('disabled', 'disabled');
+            showMsg('Today is Birthday of very Special person', () => {
+              setTimeout(() => {
+                showMsg('You are that special one', () => {
+                  setTimeout(() => {
+                    overlay.style.opacity = 0;
+                    mainSection.style.opacity = 0;
+                    mainSection.style.display = '';
+                    setTimeout(() => {
+                      mainSection.style.transition = 'opacity 1.2s';
+                      mainSection.style.opacity = 1;
+                      // Auto fireworks when main page appears
+                      if(window.launchFirework) {
+                        let fwCount = 0;
+                        function fwLoop() {
+                          window.launchFirework();
+                          fwCount++;
+                          if(fwCount < 5) setTimeout(fwLoop, 700);
+                        }
+                        fwLoop();
+                      }
+                      setTimeout(() => {
+                        overlay.style.display = 'none';
+                        mainSection.style.transition = '';
+                      }, 1200);
+                    }, 100);
+                  }, 1200);
+                });
+              }, 1700);
+            });
+          }
+        }
+        typeIt();
+      }, 600);
+    });
+    // Centered dynamic time section logic
     (function() {
-      const sinceDate = new Date('2005-01-01T00:00:00'); // Set your date here
-      function updateBadge() {
+      const sinceDate = new Date('2003-01-01T00:00:00'); // Set your date here
+      function updateMainCounter() {
         const now = new Date();
         let diff = Math.floor((now - sinceDate) / 1000); // seconds
         const days = Math.floor(diff / (3600*24));
@@ -253,17 +321,12 @@
         diff -= hours * 3600;
         const minutes = Math.floor(diff / 60);
         const seconds = diff - minutes * 60;
-        document.getElementById('badge-days').textContent = days;
-        document.getElementById('badge-minutes').textContent = minutes;
-        document.getElementById('badge-seconds').textContent = seconds;
+        document.getElementById('main-days').textContent = days;
+        document.getElementById('main-minutes').textContent = minutes;
+        document.getElementById('main-seconds').textContent = seconds;
       }
-      updateBadge();
-      setInterval(updateBadge, 1000);
-      window.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-          document.getElementById('luckier-badge-dyn').classList.add('visible');
-        }, 300);
-      });
+      updateMainCounter();
+      setInterval(updateMainCounter, 1000);
     })();
     /* =========================
        EASY CUSTOMIZATION PANEL
@@ -511,20 +574,7 @@
       window.scrollTo({ top: document.querySelector('#surprise').offsetTop - 20, behavior: 'smooth' });
     });
 
-    /* =========================
-       MUSIC CONTROL
-       ========================= */
-    const music = document.getElementById('bgm');
-    const musicBtn = document.getElementById('music-btn');
-    let playing = false;
-    async function toggleMusic(){
-      try{
-        if(!playing){ await music.play(); playing=true; musicBtn.innerHTML = '⏸️ <span class="k">Pause music</span>'; }
-        else{ music.pause(); playing=false; musicBtn.innerHTML = '🎵 <span class="k">Music</span>'; }
-      }catch(e){ alert('Browser blocked autoplay. Tap again after interaction.'); }
-    }
-    musicBtn.addEventListener('click', toggleMusic);
-    if(SETTINGS.autoMusic){ setTimeout(()=> toggleMusic(), 800); }
+  // Music control removed
 
     /* =========================
        SHARE
