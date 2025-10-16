@@ -294,21 +294,27 @@
   <section id="surprise" class="hidden">
     <div class="container">
       <div class="card glass">
-        <h2>For <span id="recipient-name">You</span> — from <span id="sender-name">Me</span> 💌</h2>
+  <h2>For <span id="recipient-name">You</span> — from <span id="sender-name">Samad</span> 💌</h2>
         <div class="twotype" id="message"></div>
         <div class="divider"></div>
         <div style="text-align:center; margin-bottom:1.5rem;">
-          <button id="showKaranBtn" class="btn primary" style="font-size:1.1rem;">You Know how You Look , click Here </button>
-        </div>
-
+          <button id="showHbd2Btn" class="btn primary" style="font-size:1.1rem; margin:0.5rem 0;">Happy Birthday (click here please)</button>
+          
         <div class="gallery" id="gallery">
           <!-- Images injected by JS -->
         </div>
 
         <!-- Video Buttons -->
         <div style="text-align:center; margin-top:2rem;">
-          <button id="showHbd1Btn" class="btn primary" style="font-size:1.1rem; margin:0.5rem 0;">If you want to know what I see in you? click here!</button><br>
-          <button id="showHbd2Btn" class="btn primary" style="font-size:1.1rem; margin:0.5rem 0;">Madam G Yahan  pr bi</button>
+          <button id="showKaranBtn" class="btn primary" style="font-size:1.1rem;">mamala bas se bahir (PLEASE CLICK ME ) </button>
+        </div>
+
+        <div style="text-align:center; margin-top:1rem;">
+          <button id="showLastBtn" class="btn primary" style="font-size:1.1rem;">expectations till last breath from you (please click)</button>
+        </div>
+
+          <button id="showHbd1Btn" class="btn primary" style="font-size:1.1rem; margin:0.5rem 0;">Tum ja ke bi mere pass hu (PLEASE CLICK ME )</button><br>
+         
         </div>
 
         <!-- Modal for hbd1 Video -->
@@ -331,7 +337,14 @@
           <div style="position:relative; max-width:90vw; max-height:80vh; margin:auto;">
             <button id="closeKaranModal" style="position:absolute; top:-36px; right:0; background:#ff4d6d; color:#fff; border:none; border-radius:50%; width:36px; height:36px; font-size:1.5rem; cursor:pointer;">&times;</button>
             <video id="karanVideo" src="karan.mp4" controls style="width:100%; max-height:70vh; border-radius:18px; background:#000;"></video>
-            <div style="color:#fff; text-align:center; margin-top:10px; font-size:1.1rem;">These words are not enough to describe your beauty</div>
+            
+          </div>
+        </div>
+        <!-- Modal for Last Video -->
+        <div id="lastModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); align-items:center; justify-content:center;">
+          <div style="position:relative; max-width:90vw; max-height:80vh; margin:auto;">
+            <button id="closeLastModal" style="position:absolute; top:-36px; right:0; background:#ff4d6d; color:#fff; border:none; border-radius:50%; width:36px; height:36px; font-size:1.5rem; cursor:pointer;">&times;</button>
+            <video id="lastVideo" src="last.mp4" controls style="width:100%; max-height:70vh; border-radius:18px; background:#000;"></video>
           </div>
         </div>
       </div>
@@ -341,6 +354,8 @@
   <footer>
     Made with ❤️ just for you. <span id="year"></span>
   </footer>
+
+  <div style="text-align:center; color:var(--muted); margin-bottom:32px;">Always Looking for You</div>
 
   <!-- Background Music and Special Surprise section removed -->
   <script>
@@ -431,12 +446,16 @@
        ========================= */
     const SETTINGS = {
       recipientName: "You",           // 👈 her name
-      senderName: "Nadeem",              // 👈 your name
+  senderName: "Samad",              // 👈 your name
       themeColor: "#ff4d6d",            // primary color
       titleText: "Happy Birthday, You!", 
       subtitleText: "You are my favorite person in the universe. I pray your day is full of joy, health, and endless smiles.",
       // Typewriter message (line breaks allowed with \n)
-      message: `My dear,\n\nEvery day with you is a gift. Thank you for your kindness, your laughter, and your beautiful heart.\nOn your special day, I wish you peace, success, and the sweetest moments.\n\nI’m always here for you — today and every day. Happy Birthday! 💖`,
+  message: `Happy Birthday, Zahra. 🎂
+It’s been two months since our breakup, and today I realize how much I truly miss you.
+I know I made mistakes, and I’m deeply sorry for the pain I caused.
+You still mean a lot to me, and I’ll always wish you happiness and peace.
+No matter what, you’ll always have a special place in my heart. ❤️`,
       // Replace these with your videos (local files)
   gallery: [],
       // Music
@@ -534,6 +553,30 @@
         if(e.target === karanModal) {
           karanModal.style.display = 'none';
           karanVideo.pause();
+        }
+      });
+    }
+
+    // Last video modal logic
+    const showLastBtn = document.getElementById('showLastBtn');
+    const lastModal = document.getElementById('lastModal');
+    const closeLastModal = document.getElementById('closeLastModal');
+    const lastVideo = document.getElementById('lastVideo');
+    if(showLastBtn && lastModal && closeLastModal && lastVideo) {
+      showLastBtn.addEventListener('click', () => {
+        lastModal.style.display = 'flex';
+        lastVideo.currentTime = 0;
+        lastVideo.play();
+      });
+      closeLastModal.addEventListener('click', () => {
+        lastModal.style.display = 'none';
+        lastVideo.pause();
+      });
+      // close on outside click
+      lastModal.addEventListener('click', (e) => {
+        if(e.target === lastModal) {
+          lastModal.style.display = 'none';
+          lastVideo.pause();
         }
       });
     }
