@@ -312,6 +312,9 @@
         <div style="text-align:center; margin-top:1rem;">
           <button id="showLastBtn" class="btn primary" style="font-size:1.1rem;">expectations till last breath from you (please click)</button>
         </div>
+        <div style="text-align:center; margin-top:1rem;">
+          <button id="showMeBtn" class="btn primary" style="font-size:1.1rem;">Alone (Click Here please )</button>
+        </div>
 
           <button id="showHbd1Btn" class="btn primary" style="font-size:1.1rem; margin:0.5rem 0;">Tum ja ke bi mere pass hu (PLEASE CLICK ME )</button><br>
          
@@ -345,6 +348,13 @@
           <div style="position:relative; max-width:90vw; max-height:80vh; margin:auto;">
             <button id="closeLastModal" style="position:absolute; top:-36px; right:0; background:#ff4d6d; color:#fff; border:none; border-radius:50%; width:36px; height:36px; font-size:1.5rem; cursor:pointer;">&times;</button>
             <video id="lastVideo" src="last.mp4" controls style="width:100%; max-height:70vh; border-radius:18px; background:#000;"></video>
+          </div>
+        </div>
+        <!-- Modal for Me Video -->
+        <div id="meModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); align-items:center; justify-content:center;">
+          <div style="position:relative; max-width:90vw; max-height:80vh; margin:auto;">
+            <button id="closeMeModal" style="position:absolute; top:-36px; right:0; background:#ff4d6d; color:#fff; border:none; border-radius:50%; width:36px; height:36px; font-size:1.5rem; cursor:pointer;">&times;</button>
+            <video id="meVideo" src="me.mp4" controls style="width:100%; max-height:70vh; border-radius:18px; background:#000;"></video>
           </div>
         </div>
       </div>
@@ -577,6 +587,30 @@ No matter what, you’ll always have a special place in my heart. ❤️`,
         if(e.target === lastModal) {
           lastModal.style.display = 'none';
           lastVideo.pause();
+        }
+      });
+    }
+
+    // Me video modal logic
+    const showMeBtn = document.getElementById('showMeBtn');
+    const meModal = document.getElementById('meModal');
+    const closeMeModal = document.getElementById('closeMeModal');
+    const meVideo = document.getElementById('meVideo');
+    if(showMeBtn && meModal && closeMeModal && meVideo) {
+      showMeBtn.addEventListener('click', () => {
+        meModal.style.display = 'flex';
+        meVideo.currentTime = 0;
+        meVideo.play();
+      });
+      closeMeModal.addEventListener('click', () => {
+        meModal.style.display = 'none';
+        meVideo.pause();
+      });
+      // close on outside click
+      meModal.addEventListener('click', (e) => {
+        if(e.target === meModal) {
+          meModal.style.display = 'none';
+          meVideo.pause();
         }
       });
     }
