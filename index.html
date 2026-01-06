@@ -604,6 +604,27 @@
         .clay-button:active {
             transform: translateY(-1px) scale(0.98);
         }
+.lazy-thumbnail {
+    background-image: none !important;
+    opacity: 0.7;
+}
+
+.lazy-thumbnail.loaded {
+    opacity: 1;
+}
+
+.thumbnail-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
 
 
         /* ==================== PASSPORT CARD STYLES =================== */
@@ -1672,13 +1693,8 @@
             </div>
             <div class="video-grid" id="video-grid" style="display: none;">
                                 <!-- Video 1: hbd.mp4 -->
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/hbd.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: Happy Birthday"
-                >
+                         <!-- Video 1: hbd.mp4 -->
+                <div class="video-card" data-video="vedioes/hbd.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/hbd.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
@@ -1688,13 +1704,7 @@
                 </div>
 
                 <!-- Video 2: hbd0.mp4 -->
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/hbd0.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: Birthday Wishes"
-                >
+                <div class="video-card" data-video="vedioes/hbd0.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/hbd0.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
@@ -1704,29 +1714,17 @@
                 </div>
 
                 <!-- Video 3: mil.mp4 -->
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/mil.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: Special Moments"
-                >
+                <div class="video-card" data-video="vedioes/mil.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/mil.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
                         <h3 class="video-title">Special Moments</h3>
-                         <p class="video-description">Another special moment 💫</p>
+                        <p class="video-description">Another special moment 💫</p>
                     </div>
                 </div>
 
-
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/hbd2.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: Happy Birthday Celebration"
-                >
+                <!-- Video 4: hbd2.mp4 -->
+                <div class="video-card" data-video="vedioes/hbd2.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/hbd2.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
@@ -1735,13 +1733,8 @@
                     </div>
                 </div>
 
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/hbd1.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: You Are My First Priority"
-                >
+                <!-- Video 5: hbd1.mp4 -->
+                <div class="video-card" data-video="vedioes/hbd1.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/hbd1.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
@@ -1750,13 +1743,8 @@
                     </div>
                 </div>
 
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/karan.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: Mamala Bas Se Bahir"
-                >
+                <!-- Video 6: karan.mp4 -->
+                <div class="video-card" data-video="vedioes/karan.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/karan.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
@@ -1765,13 +1753,8 @@
                     </div>
                 </div>
 
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/karan2.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: Mamala Bas Se Bahir 2"
-                >
+                <!-- Video 7: karan2.mp4 -->
+                <div class="video-card" data-video="vedioes/karan2.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/karan2.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
@@ -1780,13 +1763,8 @@
                     </div>
                 </div>
 
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/last.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: As You Wish"
-                >
+                <!-- Video 8: last.mp4 -->
+                <div class="video-card" data-video="vedioes/last.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/last.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
@@ -1795,13 +1773,8 @@
                     </div>
                 </div>
 
-                <div 
-                    class="video-card" 
-                    data-video="vedioes/me.mp4"
-                    role="button"
-                    tabindex="0"
-                    aria-label="Play video: Phad Le Hath Mera"
-                >
+                <!-- Video 9: me.mp4 -->
+                <div class="video-card" data-video="vedioes/me.mp4" role="button" tabindex="0">
                     <div class="video-thumbnail" style="background-image: url('images/me.png');"></div>
                     <div class="play-button" aria-hidden="true">▶</div>
                     <div class="video-info">
@@ -1809,6 +1782,7 @@
                         <p class="video-description">Forever together 🤝</p>
                     </div>
                 </div>
+
             </div>
         </section>
     </main>
@@ -1865,6 +1839,31 @@
     </nav>
 
     <script>
+        function lazyLoadThumbnails() {
+    const lazyThumbnails = document.querySelectorAll('.lazy-thumbnail');
+    const thumbnailObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const thumbnail = entry.target;
+                const bgUrl = thumbnail.getAttribute('data-bg');
+                const img = new Image();
+                img.onload = () => {
+                    thumbnail.style.backgroundImage = `url('${bgUrl}')`;
+                    thumbnail.classList.add('loaded');
+                };
+                img.src = bgUrl;
+                observer.unobserve(thumbnail);
+            }
+        });
+    }, { rootMargin: '50px' });
+    
+    lazyThumbnails.forEach(thumbnail => thumbnailObserver.observe(thumbnail));
+}
+
+document.getElementById('go-to-videos-btn').addEventListener('click', () => {
+    setTimeout(() => lazyLoadThumbnails(), 500);
+});
+
         // ==================== INITIALIZATION ====================
         const STATE = {
             birthdayDate: new Date('2004-12-17T00:00:00'),
